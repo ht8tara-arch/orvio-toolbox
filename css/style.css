@@ -40,6 +40,78 @@ body {
   padding: 0 16px;
 }
 
+/* ---------- サイドバー付きレイアウト(ツールページ用) ---------- */
+
+.page-layout {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.page-layout .main-col {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--maxw);
+}
+
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 16px;
+}
+
+.sidebar .card { margin-bottom: 16px; }
+
+.sidebar h2 {
+  font-size: 14px;
+  margin: 0 0 12px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+}
+
+.sidebar ul { list-style: none; margin: 0; padding: 0; }
+
+.sidebar li { border-bottom: 1px solid var(--border); }
+
+.sidebar li:last-child { border-bottom: none; }
+
+.sidebar a {
+  display: block;
+  padding: 10px 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.sidebar a:hover { color: var(--accent); }
+
+.sidebar a.current { color: var(--accent); pointer-events: none; }
+
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 0 0 20px;
+}
+
+@media (max-width: 900px) {
+  .page-layout { flex-direction: column; }
+  .page-layout .main-col { max-width: 100%; width: 100%; }
+  .sidebar { width: 100%; position: static; }
+  .sidebar .card { margin-bottom: 0; }
+}
+
 main.container { padding-bottom: 48px; }
 
 /* ---------- ヘッダー / フッター ---------- */
