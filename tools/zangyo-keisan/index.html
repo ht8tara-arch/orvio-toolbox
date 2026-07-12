@@ -48,6 +48,11 @@
       "@type": "Question",
       "name": "月給に含めない手当はありますか?",
       "acceptedAnswer": { "@type": "Answer", "text": "残業代の基礎となる賃金からは、家族手当・通勤手当・住宅手当・別居手当・子女教育手当・臨時の賃金・1か月を超える期間ごとの賃金(賞与など)を除外できます。基本給+役職手当などを入力してください。" }
+    },
+    {
+      "@type": "Question",
+      "name": "会社の割増率が法定より高い場合はどう計算すればいいですか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "「詳細設定(割増率をカスタマイズ)」を開くと、時間外・60時間超・深夜・休日それぞれの割増率を法定最低値から変更できます。就業規則に記載の数値に合わせて入力してください。" }
     }
   ]
 }
@@ -67,6 +72,7 @@
 
   <h1>残業代計算ツール</h1>
   <p class="lead">月給と残業時間を入力するだけで、法定の割増率(25%〜75%)にもとづく残業代の概算がわかります。深夜残業・休日出勤・月60時間超にも対応。</p>
+  <p class="note" style="margin-top:0;">🕐 法令情報の最終確認: 2026年7月(2023年4月からの中小企業向け60時間超50%割増を反映済み)</p>
 
   <!-- ============ ツール本体 ============ -->
   <div class="card tool-card">
@@ -82,18 +88,50 @@
     </div>
     <div class="field-row">
       <div class="field">
-        <label for="otNormal">時間外労働(時間/月) <span class="hint">いわゆる普通の残業</span></label>
-        <input type="number" id="otNormal" inputmode="decimal" placeholder="例: 30" min="0">
+        <label for="otNormal">時間外労働(時間/月) <span class="hint">いわゆる普通の残業(小数可・例:1.5)</span></label>
+        <input type="number" id="otNormal" inputmode="decimal" placeholder="例: 30" min="0" step="0.1">
       </div>
       <div class="field">
         <label for="otNight">うち深夜(22時〜5時)の時間</label>
-        <input type="number" id="otNight" inputmode="decimal" placeholder="例: 5" min="0" value="0">
+        <input type="number" id="otNight" inputmode="decimal" placeholder="例: 5" min="0" step="0.1" value="0">
       </div>
     </div>
-    <div class="field">
-      <label for="otHoliday">法定休日労働(時間/月) <span class="hint">週1日の法定休日に出勤した時間</span></label>
-      <input type="number" id="otHoliday" inputmode="decimal" placeholder="例: 0" min="0" value="0">
+    <div class="field-row">
+      <div class="field">
+        <label for="otHoliday">法定休日労働(時間/月) <span class="hint">週1日の法定休日に出勤した時間</span></label>
+        <input type="number" id="otHoliday" inputmode="decimal" placeholder="例: 0" min="0" step="0.1" value="0">
+      </div>
+      <div class="field">
+        <label for="otHolidayNight">うち休日出勤の深夜の時間</label>
+        <input type="number" id="otHolidayNight" inputmode="decimal" placeholder="例: 0" min="0" step="0.1" value="0">
+      </div>
     </div>
+
+    <details style="margin: 16px 0;">
+      <summary style="cursor:pointer; font-size:14px; font-weight:600; color:var(--accent-dark);">詳細設定(割増率をカスタマイズ)</summary>
+      <div class="field-row" style="margin-top:12px;">
+        <div class="field">
+          <label for="rateOt">時間外割増率(%) <span class="hint">法定最低25%</span></label>
+          <input type="number" id="rateOt" inputmode="decimal" value="25" min="25" step="0.1">
+        </div>
+        <div class="field">
+          <label for="rateOt60">60時間超の割増率(%) <span class="hint">法定最低50%</span></label>
+          <input type="number" id="rateOt60" inputmode="decimal" value="50" min="50" step="0.1">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="rateNight">深夜割増率(%) <span class="hint">法定最低25%</span></label>
+          <input type="number" id="rateNight" inputmode="decimal" value="25" min="25" step="0.1">
+        </div>
+        <div class="field">
+          <label for="rateHoliday">休日割増率(%) <span class="hint">法定最低35%</span></label>
+          <input type="number" id="rateHoliday" inputmode="decimal" value="35" min="35" step="0.1">
+        </div>
+      </div>
+      <p class="note" style="margin-bottom:0;">就業規則で法定より高い割増率が定められている場合は、ここを変更してください。通常はそのままでOKです。</p>
+    </details>
+
     <button class="btn-primary" id="calcBtn">残業代を計算する</button>
 
     <div class="result" id="result">
@@ -153,6 +191,10 @@
       <h3>月給に含めない手当はありますか?</h3>
       <p>残業代の基礎となる賃金からは、家族手当・通勤手当・住宅手当・別居手当・子女教育手当・臨時に支払われた賃金・賞与を除外できます。基本給に役職手当・資格手当などを足した金額を入力してください。</p>
     </div>
+    <div class="faq-item">
+      <h3>会社の割増率が法定より高い場合はどう計算すればいいですか?</h3>
+      <p>「詳細設定(割増率をカスタマイズ)」を開くと、時間外・60時間超・深夜・休日それぞれの割増率を法定最低値から変更できます。就業規則に記載の数値に合わせて入力してください。</p>
+    </div>
 
   </div>
 
@@ -162,8 +204,9 @@
   <div class="related">
     <h2>関連ツール</h2>
     <ul>
-      <li>手取り計算ツール(準備中)</li>
-      <li>退職金の税金計算ツール(準備中)</li>
+      <li><a href="../tetori-keisan/">手取り計算ツール</a></li>
+      <li><a href="../yukyu-nissu/">有給休暇 付与日数計算ツール</a></li>
+      <li><a href="../nenshu-no-kabe/">年収の壁 計算ツール</a></li>
     </ul>
   </div>
 
@@ -189,33 +232,42 @@ document.getElementById('calcBtn').addEventListener('click', function () {
   var otNormal = parseFloat(document.getElementById('otNormal').value) || 0;
   var otNight = parseFloat(document.getElementById('otNight').value) || 0;
   var otHoliday = parseFloat(document.getElementById('otHoliday').value) || 0;
+  var otHolidayNight = parseFloat(document.getElementById('otHolidayNight').value) || 0;
+
+  var rateOt = (parseFloat(document.getElementById('rateOt').value) || 25) / 100;
+  var rateOt60 = (parseFloat(document.getElementById('rateOt60').value) || 50) / 100;
+  var rateNight = (parseFloat(document.getElementById('rateNight').value) || 25) / 100;
+  var rateHoliday = (parseFloat(document.getElementById('rateHoliday').value) || 35) / 100;
 
   if (isNaN(salary) || salary <= 0) { alert('月給を入力してください'); return; }
   if (isNaN(monthlyHours) || monthlyHours <= 0) { alert('月の所定労働時間を入力してください'); return; }
   if (otNight > otNormal) { alert('「うち深夜」の時間は時間外労働の時間以下で入力してください'); return; }
+  if (otHolidayNight > otHoliday) { alert('「うち休日出勤の深夜」の時間は法定休日労働の時間以下で入力してください'); return; }
 
   var hourly = salary / monthlyHours;
 
-  // 時間外労働: 60時間以下は1.25倍、60時間超は1.5倍
+  // 時間外労働: 60時間以下は1.25倍、60時間超は1.5倍(倍率はカスタマイズ可)
   var otUnder60 = Math.min(otNormal, 60);
   var otOver60 = Math.max(otNormal - 60, 0);
-  var payUnder60 = hourly * 1.25 * otUnder60;
-  var payOver60 = hourly * 1.5 * otOver60;
+  var payUnder60 = hourly * (1 + rateOt) * otUnder60;
+  var payOver60 = hourly * (1 + rateOt60) * otOver60;
 
-  // 深夜は+0.25を加算(時間外の中の深夜分)
-  var payNight = hourly * 0.25 * otNight;
+  // 深夜は割増を加算(時間外・休日それぞれの内数)
+  var payNight = hourly * rateNight * otNight;
+  var payHolidayNight = hourly * rateNight * otHolidayNight;
 
-  // 法定休日は1.35倍
-  var payHoliday = hourly * 1.35 * otHoliday;
+  // 法定休日
+  var payHoliday = hourly * (1 + rateHoliday) * otHoliday;
 
-  var total = payUnder60 + payOver60 + payNight + payHoliday;
+  var total = payUnder60 + payOver60 + payNight + payHoliday + payHolidayNight;
 
   var rows = '';
   rows += '<tr><th>1時間あたりの基礎賃金</th><td>' + yen(hourly) + '</td></tr>';
-  if (otUnder60 > 0) rows += '<tr><th>時間外(60時間以下)×1.25</th><td>' + yen(payUnder60) + '</td></tr>';
-  if (otOver60 > 0) rows += '<tr><th>時間外(60時間超)×1.50</th><td>' + yen(payOver60) + '</td></tr>';
-  if (otNight > 0) rows += '<tr><th>深夜割増(+0.25)</th><td>' + yen(payNight) + '</td></tr>';
-  if (otHoliday > 0) rows += '<tr><th>法定休日×1.35</th><td>' + yen(payHoliday) + '</td></tr>';
+  if (otUnder60 > 0) rows += '<tr><th>時間外(60時間以下)×' + (1 + rateOt).toFixed(2) + '</th><td>' + yen(payUnder60) + '</td></tr>';
+  if (otOver60 > 0) rows += '<tr><th>時間外(60時間超)×' + (1 + rateOt60).toFixed(2) + '</th><td>' + yen(payOver60) + '</td></tr>';
+  if (otNight > 0) rows += '<tr><th>深夜割増(+' + (rateNight * 100).toFixed(0) + '%)</th><td>' + yen(payNight) + '</td></tr>';
+  if (otHoliday > 0) rows += '<tr><th>法定休日×' + (1 + rateHoliday).toFixed(2) + '</th><td>' + yen(payHoliday) + '</td></tr>';
+  if (otHolidayNight > 0) rows += '<tr><th>休日深夜割増(+' + (rateNight * 100).toFixed(0) + '%)</th><td>' + yen(payHolidayNight) + '</td></tr>';
   rows += '<tr><th>年間ベースの目安(×12)</th><td>' + yen(total * 12) + '</td></tr>';
 
   document.getElementById('resultAmount').textContent = yen(total);

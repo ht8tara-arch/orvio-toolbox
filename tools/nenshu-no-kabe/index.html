@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>年収の壁 計算ツール｜103万・106万・130万円を時給から自動判定 - カンタン計算ラボ</title>
+<meta name="description" content="時給と勤務時間を入れるだけで、扶養内で働ける年収の壁(103万・106万・130万円)までの残り時間を自動計算。2025年税制改正(123万円ライン)にも対応した無料ツールです。">
+<link rel="canonical" href="https://orvio-works.com/tools/nenshu-no-kabe/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="年収の壁 計算ツール|103万・106万・130万円を時給から自動判定">
+<meta property="og:description" content="時給と勤務時間から、扶養内で働ける年収の壁までの残り時間を自動計算。">
+<meta property="og:url" content="https://orvio-works.com/tools/nenshu-no-kabe/">
+<meta property="og:image" content="https://orvio-works.com/assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "年収の壁計算ツール",
+  "url": "https://orvio-works.com/tools/nenshu-no-kabe/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "103万円の壁は今もありますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "2025年の税制改正により、所得税がかかり始める年収ラインは基礎控除58万円+給与所得控除65万円=123万円に引き上げられました。「103万円の壁」という呼び方は残っていますが、実際のボーダーラインは123万円です。" }
+    },
+    {
+      "@type": "Question",
+      "name": "106万円の壁は誰にでも関係ありますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "従業員数51人を超える企業に、週20時間以上・月収8.8万円以上・雇用見込み2ヶ月超・学生でない、などの条件をすべて満たすパート従業員が勤務する場合に社会保険への加入義務が生じるラインです。勤務先の規模によっては関係しない場合もあるため、勤務先に確認するのが確実です。" }
+    },
+    {
+      "@type": "Question",
+      "name": "130万円を少し超えただけならどうなりますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "130万円を超えると、配偶者の社会保険の扶養から外れ、自分自身で国民健康保険・国民年金(または勤務先の社会保険)に加入する必要が生じます。手取りが逆に減ってしまうケースがあるため、あらかじめシフトを調整するのが一般的です。" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="../../">カンタン<span>計算ラボ</span></a>
+  </div>
+</header>
+
+<main class="container">
+
+  <nav class="breadcrumb"><a href="../../">ホーム</a> › 年収の壁 計算ツール</nav>
+
+  <h1>年収の壁 計算ツール</h1>
+  <p class="lead">時給と月の勤務時間を入力すると、想定年収と「年収の壁」までの残り時間がわかります。パート・アルバイトの扶養内調整にお使いください。</p>
+  <p class="note" style="margin-top:0;">🕐 法令情報の最終確認: 2026年7月(2025年税制改正の123万円ラインを反映)。制度は変わりやすいため、最新情報は勤務先や国税庁でご確認ください。</p>
+
+  <!-- ============ ツール本体 ============ -->
+  <div class="card tool-card">
+    <div class="field-row">
+      <div class="field">
+        <label for="wage">時給(円)</label>
+        <input type="number" id="wage" inputmode="numeric" placeholder="例: 1100" min="0">
+      </div>
+      <div class="field">
+        <label for="monthlyHours">月の勤務時間(時間) <span class="hint">今の想定でOK</span></label>
+        <input type="number" id="monthlyHours" inputmode="decimal" placeholder="例: 80" min="0" step="0.1">
+      </div>
+    </div>
+    <button class="btn-primary" id="calcBtn">年収を計算する</button>
+
+    <div class="result" id="result">
+      <p class="result-main">その働き方での想定年収</p>
+      <p class="result-amount" id="resultAmount"></p>
+      <table id="resultTable"></table>
+    </div>
+  </div>
+
+  <p class="note">※ 想定年収は「時給 × 月の勤務時間 × 12ヶ月」の単純計算です。残業代・交通費・繁閑差は含みません。106万円の壁は企業規模など追加条件があります(下記解説参照)。</p>
+
+  <!-- ============ 広告枠A: 結果直下 ============ -->
+  <div class="ad-slot" data-slot="A"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="share">
+    <a class="share-x" target="_blank" rel="noopener">Xでシェア</a>
+    <a class="share-line" target="_blank" rel="noopener">LINEで送る</a>
+    <button class="share-copy">リンクをコピー</button>
+  </div>
+
+  <!-- ============ 記事パート ============ -->
+  <div class="article">
+
+    <h2>このツールの使い方</h2>
+    <p>1. <strong>時給</strong>を入力します。<br>
+    2. <strong>月の勤務時間</strong>を入力して「計算する」を押すと、想定年収と各「壁」までの残り時間(月あたり)が表示されます。</p>
+
+    <h2>「年収の壁」とは(2025年改正版)</h2>
+    <p>「年収の壁」とは、年収がある金額を超えると税金や社会保険料の負担が発生し、手取りが減ったり扶養から外れたりするラインのことです。主に3つあります。</p>
+    <table>
+      <tr><th>壁</th><th>何が起きるか</th><th>備考</th></tr>
+      <tr><td>123万円<br><span style="color:var(--muted); font-size:12px;">(旧称: 103万円の壁)</span></td><td>本人に所得税がかかり始める</td><td>2025年の税制改正で103万円→123万円に引き上げ</td></tr>
+      <tr><td>106万円</td><td>社会保険(健康保険・厚生年金)への加入義務が生じる場合がある</td><td>従業員51人超の企業・週20時間以上など条件あり</td></tr>
+      <tr><td>130万円</td><td>配偶者の社会保険の扶養から外れる</td><td>106万円の条件に当てはまらない人の基準</td></tr>
+    </table>
+    <p>このほか、住民税がかかり始めるライン(目安100万円前後、自治体により異なる)や、配偶者特別控除が段階的に縮小する150万円・201万円のラインもありますが、まず意識すべきは上記3つです。</p>
+
+    <h2>よくある質問</h2>
+    <div class="faq-item">
+      <h3>103万円の壁は今もありますか?</h3>
+      <p>2025年の税制改正により、所得税がかかり始める年収ラインは基礎控除58万円+給与所得控除65万円=123万円に引き上げられました。「103万円の壁」という呼び方は残っていますが、実際のボーダーラインは123万円です。</p>
+    </div>
+    <div class="faq-item">
+      <h3>106万円の壁は誰にでも関係ありますか?</h3>
+      <p>従業員数51人を超える企業に、週20時間以上・月収8.8万円以上・雇用見込み2ヶ月超・学生でない、などの条件をすべて満たすパート従業員が勤務する場合に社会保険への加入義務が生じるラインです。勤務先の規模によっては関係しない場合もあるため、勤務先に確認するのが確実です。</p>
+    </div>
+    <div class="faq-item">
+      <h3>130万円を少し超えただけならどうなりますか?</h3>
+      <p>130万円を超えると、配偶者の社会保険の扶養から外れ、自分自身で国民健康保険・国民年金(または勤務先の社会保険)に加入する必要が生じます。手取りが逆に減ってしまうケースがあるため、あらかじめシフトを調整するのが一般的です。</p>
+    </div>
+
+  </div>
+
+  <!-- ============ 広告枠B: 記事後 ============ -->
+  <div class="ad-slot" data-slot="B"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="related">
+    <h2>関連ツール</h2>
+    <ul>
+      <li><a href="../tetori-keisan/">手取り計算ツール</a></li>
+      <li><a href="../zangyo-keisan/">残業代計算ツール</a></li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav>
+      <a href="../../">ホーム</a>
+      <a href="../../about/">運営者情報</a>
+      <a href="../../privacy/">プライバシーポリシー</a>
+      <a href="../../contact/">お問い合わせ</a>
+    </nav>
+    <p>© <span class="copyright-year"></span> カンタン計算ラボ</p>
+  </div>
+</footer>
+
+<script src="../../js/common.js"></script>
+<script>
+var WALLS = [
+  { label: '123万円の壁(旧103万円)', amount: 1230000 },
+  { label: '106万円の壁', amount: 1060000 },
+  { label: '130万円の壁', amount: 1300000 }
+];
+
+document.getElementById('calcBtn').addEventListener('click', function () {
+  var wage = parseFloat(document.getElementById('wage').value);
+  var monthlyHours = parseFloat(document.getElementById('monthlyHours').value);
+
+  if (isNaN(wage) || wage <= 0) { alert('時給を入力してください'); return; }
+  if (isNaN(monthlyHours) || monthlyHours <= 0) { alert('月の勤務時間を入力してください'); return; }
+
+  var annual = wage * monthlyHours * 12;
+
+  var rows = '';
+  rows += '<tr><th>月収の目安</th><td>' + yen(wage * monthlyHours) + '</td></tr>';
+
+  WALLS.slice().sort(function (a, b) { return a.amount - b.amount; }).forEach(function (w) {
+    if (annual < w.amount) {
+      var remainingMonthly = (w.amount - annual) / 12;
+      var remainingHours = remainingMonthly / wage;
+      rows += '<tr><th>' + w.label + 'まで</th><td>あと月' + remainingHours.toFixed(1) + '時間ほど</td></tr>';
+    } else {
+      rows += '<tr><th>' + w.label + '</th><td style="color:#dc2626; font-weight:700;">超えています</td></tr>';
+    }
+  });
+
+  document.getElementById('resultAmount').textContent = yen(annual);
+  document.getElementById('resultTable').innerHTML = rows;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>有給休暇 付与日数計算ツール｜勤続年数から1分でわかる無料シミュレーター - カンタン計算ラボ</title>
+<meta name="description" content="勤続年数と週の勤務日数を入れるだけで、法律上もらえる有給休暇の日数を自動計算。パート・アルバイトの比例付与にも対応した無料ツールです。登録不要。">
+<link rel="canonical" href="https://orvio-works.com/tools/yukyu-nissu/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="有給休暇 付与日数計算ツール|勤続年数から1分でわかる無料シミュレーター">
+<meta property="og:description" content="勤続年数と週の勤務日数から、法律上もらえる有給休暇の日数を自動計算。パート・アルバイトの比例付与にも対応。">
+<meta property="og:url" content="https://orvio-works.com/tools/yukyu-nissu/">
+<meta property="og:image" content="https://orvio-works.com/assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "有給休暇付与日数計算ツール",
+  "url": "https://orvio-works.com/tools/yukyu-nissu/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "入社してすぐは有給休暇はもらえませんか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "入社から6ヶ月間継続して勤務し、その間の出勤率が8割以上であることが条件です。6ヶ月未満の場合、法律上の有給休暇は付与されません。" }
+    },
+    {
+      "@type": "Question",
+      "name": "パート・アルバイトでも有給休暇はもらえますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "もらえます。週の所定労働日数が4日以下かつ週の所定労働時間が30時間未満の場合は「比例付与」という仕組みで、勤務日数に応じた日数が付与されます。週30時間以上働くパートの方は正社員と同じ表が適用されます。" }
+    },
+    {
+      "@type": "Question",
+      "name": "使わなかった有給休暇はどうなりますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "有給休暇の消滅時効は2年です。付与された年度に使い切れなかった分は、翌年度に限り繰り越せますが、その翌年度を過ぎると消滅します。" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="../../">カンタン<span>計算ラボ</span></a>
+  </div>
+</header>
+
+<main class="container">
+
+  <nav class="breadcrumb"><a href="../../">ホーム</a> › 有給休暇 付与日数計算ツール</nav>
+
+  <h1>有給休暇 付与日数計算ツール</h1>
+  <p class="lead">勤続年数と週の勤務日数を入力するだけで、労働基準法にもとづく有給休暇の付与日数がわかります。パート・アルバイトの比例付与にも対応。</p>
+
+  <!-- ============ ツール本体 ============ -->
+  <div class="card tool-card">
+    <div class="field">
+      <label for="years">勤続年数(年) <span class="hint">小数OK。入社2年3ヶ月なら2.3</span></label>
+      <input type="number" id="years" inputmode="decimal" placeholder="例: 2.5" min="0" step="0.1">
+    </div>
+    <div class="field">
+      <label for="days">週の所定労働日数 <span class="hint">週30時間以上勤務なら日数に関わらず「5日以上」を選択</span></label>
+      <select id="days">
+        <option value="5">5日以上(または週30時間以上)</option>
+        <option value="4">4日</option>
+        <option value="3">3日</option>
+        <option value="2">2日</option>
+        <option value="1">1日</option>
+      </select>
+    </div>
+    <button class="btn-primary" id="calcBtn">付与日数を計算する</button>
+
+    <div class="result" id="result">
+      <p class="result-main">法律上もらえる有給休暇</p>
+      <p class="result-amount" id="resultAmount"></p>
+      <table id="resultTable"></table>
+    </div>
+  </div>
+
+  <p class="note">※ 出勤率8割以上であることが付与の条件です。会社の規定で法定日数より多く付与される場合もあるため、正確な日数は就業規則をご確認ください。</p>
+
+  <!-- ============ 広告枠A: 結果直下 ============ -->
+  <div class="ad-slot" data-slot="A"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="share">
+    <a class="share-x" target="_blank" rel="noopener">Xでシェア</a>
+    <a class="share-line" target="_blank" rel="noopener">LINEで送る</a>
+    <button class="share-copy">リンクをコピー</button>
+  </div>
+
+  <!-- ============ 記事パート ============ -->
+  <div class="article">
+
+    <h2>このツールの使い方</h2>
+    <p>1. <strong>勤続年数</strong>を入力します(入社日からの経過年数)。<br>
+    2. <strong>週の所定労働日数</strong>を選んで「計算する」を押すと、法律上の付与日数が表示されます。</p>
+
+    <h2>有給休暇の付与日数(労働基準法)</h2>
+    <p>週5日以上(または週30時間以上)勤務する場合、勤続年数に応じて次の日数が付与されます。</p>
+    <table>
+      <tr><th>勤続年数</th><th>付与日数</th></tr>
+      <tr><td>6ヶ月</td><td>10日</td></tr>
+      <tr><td>1年6ヶ月</td><td>11日</td></tr>
+      <tr><td>2年6ヶ月</td><td>12日</td></tr>
+      <tr><td>3年6ヶ月</td><td>14日</td></tr>
+      <tr><td>4年6ヶ月</td><td>16日</td></tr>
+      <tr><td>5年6ヶ月</td><td>18日</td></tr>
+      <tr><td>6年6ヶ月以上</td><td>20日</td></tr>
+    </table>
+    <p>週4日以下かつ週30時間未満のパート・アルバイトの場合は、勤務日数に比例した「比例付与」が適用されます。例えば週3日勤務・勤続3年6ヶ月なら8日、週2日勤務・勤続6年6ヶ月以上なら7日といった具合に、フルタイムより少ない日数になります。</p>
+
+    <h2>よくある質問</h2>
+    <div class="faq-item">
+      <h3>入社してすぐは有給休暇はもらえませんか?</h3>
+      <p>入社から6ヶ月間継続して勤務し、その間の出勤率が8割以上であることが条件です。6ヶ月未満の場合、法律上の有給休暇は付与されません。</p>
+    </div>
+    <div class="faq-item">
+      <h3>パート・アルバイトでも有給休暇はもらえますか?</h3>
+      <p>もらえます。週の所定労働日数が4日以下かつ週の所定労働時間が30時間未満の場合は「比例付与」という仕組みで、勤務日数に応じた日数が付与されます。週30時間以上働くパートの方は正社員と同じ表が適用されます。</p>
+    </div>
+    <div class="faq-item">
+      <h3>使わなかった有給休暇はどうなりますか?</h3>
+      <p>有給休暇の消滅時効は2年です。付与された年度に使い切れなかった分は、翌年度に限り繰り越せますが、その翌年度を過ぎると消滅します。</p>
+    </div>
+
+  </div>
+
+  <!-- ============ 広告枠B: 記事後 ============ -->
+  <div class="ad-slot" data-slot="B"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="related">
+    <h2>関連ツール</h2>
+    <ul>
+      <li><a href="../zangyo-keisan/">残業代計算ツール</a></li>
+      <li><a href="../tetori-keisan/">手取り計算ツール</a></li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav>
+      <a href="../../">ホーム</a>
+      <a href="../../about/">運営者情報</a>
+      <a href="../../privacy/">プライバシーポリシー</a>
+      <a href="../../contact/">お問い合わせ</a>
+    </nav>
+    <p>© <span class="copyright-year"></span> カンタン計算ラボ</p>
+  </div>
+</footer>
+
+<script src="../../js/common.js"></script>
+<script>
+// 労働基準法の付与日数表(勤続年数のしきい値は「以上」で判定。フル: 5日以上/週30h以上、比例: 4〜1日)
+var TABLE = {
+  5: [[0.5, 10], [1.5, 11], [2.5, 12], [3.5, 14], [4.5, 16], [5.5, 18], [6.5, 20]],
+  4: [[0.5, 7], [1.5, 8], [2.5, 9], [3.5, 10], [4.5, 12], [5.5, 13], [6.5, 15]],
+  3: [[0.5, 5], [1.5, 6], [2.5, 6], [3.5, 8], [4.5, 9], [5.5, 10], [6.5, 11]],
+  2: [[0.5, 3], [1.5, 4], [2.5, 4], [3.5, 5], [4.5, 6], [5.5, 6], [6.5, 7]],
+  1: [[0.5, 1], [1.5, 2], [2.5, 2], [3.5, 2], [4.5, 3], [5.5, 3], [6.5, 3]]
+};
+
+document.getElementById('calcBtn').addEventListener('click', function () {
+  var years = parseFloat(document.getElementById('years').value);
+  var days = parseInt(document.getElementById('days').value, 10);
+
+  if (isNaN(years) || years < 0) { alert('勤続年数を入力してください'); return; }
+
+  var rows = '';
+  var amount;
+
+  if (years < 0.5) {
+    amount = 0;
+    rows += '<tr><th>付与日数</th><td>0日(付与条件の勤続6ヶ月に未達)</td></tr>';
+  } else {
+    var table = TABLE[days];
+    var granted = table[0][1];
+    for (var i = 0; i < table.length; i++) {
+      if (years >= table[i][0]) granted = table[i][1];
+    }
+    amount = granted;
+    rows += '<tr><th>週' + (days === 5 ? '5日以上' : days + '日') + '勤務での付与日数</th><td>' + granted + '日</td></tr>';
+  }
+
+  document.getElementById('resultAmount').textContent = amount + '日';
+  document.getElementById('resultTable').innerHTML = rows;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+
+</body>
+</html>
