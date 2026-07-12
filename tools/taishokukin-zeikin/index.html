@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<title>退職金の税金計算ツール｜勤続年数から手取りが1分でわかる無料シミュレーター - カンタン計算ラボ</title>
+<meta name="description" content="退職金の額と勤続年数を入れるだけで、所得税・住民税を差し引いた手取り額を自動計算。退職所得控除・2022年改正の短期退職手当等にも対応した無料ツールです。登録不要。">
+<link rel="canonical" href="https://orvio-works.com/tools/taishokukin-zeikin/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="退職金の税金計算ツール|勤続年数から手取りが1分でわかる無料シミュレーター">
+<meta property="og:description" content="退職金の額と勤続年数から、所得税・住民税を差し引いた手取り額を自動計算。">
+<meta property="og:url" content="https://orvio-works.com/tools/taishokukin-zeikin/">
+<meta property="og:image" content="https://orvio-works.com/assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "退職金の税金計算ツール",
+  "url": "https://orvio-works.com/tools/taishokukin-zeikin/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://orvio-works.com/" },
+    { "@type": "ListItem", "position": 2, "name": "退職金の税金計算ツール", "item": "https://orvio-works.com/tools/taishokukin-zeikin/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "退職金には税金がかかりますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "かかりますが、給与よりかなり優遇された計算方法です。退職所得控除という大きな非課税枠があり、さらに控除後の金額の半分だけが課税対象になるため(勤続5年超の場合)、税負担は軽くなっています。" }
+    },
+    {
+      "@type": "Question",
+      "name": "勤続年数が短いと税金は増えますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "2022年の税制改正により、勤続5年以下の従業員は「控除後の金額のうち300万円を超える部分」について1/2課税の優遇が適用されなくなりました。短期間で高額の退職金を受け取るケースを念頭に置いた改正です。" }
+    },
+    {
+      "@type": "Question",
+      "name": "「退職所得の受給に関する申告書」を出さないとどうなりますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "この申告書を勤務先に提出しないと、退職所得控除が適用されず、退職金の一律20.42%が源泉徴収されます。多くの場合は払いすぎになるため、確定申告で還付を受けられますが、提出しておけば最初から正しい税額で済みます。" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="../../">カンタン<span>計算ラボ</span></a>
+  </div>
+</header>
+
+<main class="container">
+
+  <nav class="breadcrumb"><a href="../../">ホーム</a> › 退職金の税金計算ツール</nav>
+
+  <h1>退職金の税金計算ツール</h1>
+  <p class="lead">退職金の額と勤続年数を入力するだけで、所得税・住民税を差し引いた手取り額の概算がわかります。退職所得控除・2022年改正にも対応。</p>
+  <p class="note" style="margin-top:0;">🕐 法令情報の最終確認: 2026年7月(2022年分以降の短期退職手当等の課税ルールを反映)</p>
+
+  <!-- ============ ツール本体 ============ -->
+  <div class="card tool-card">
+    <div class="field-row">
+      <div class="field">
+        <label for="amount">退職金の額(円)</label>
+        <input type="number" id="amount" inputmode="numeric" placeholder="例: 5000000" min="0">
+      </div>
+      <div class="field">
+        <label for="years">勤続年数(年) <span class="hint">1年未満の端数は1年として計算</span></label>
+        <input type="number" id="years" inputmode="numeric" placeholder="例: 15" min="1">
+      </div>
+    </div>
+    <button class="btn-primary" id="calcBtn">手取りを計算する</button>
+
+    <div class="result" id="result">
+      <p class="result-main">退職金の手取り額の目安</p>
+      <p class="result-amount" id="resultAmount"></p>
+      <table id="resultTable"></table>
+    </div>
+  </div>
+
+  <p class="note">※ 「退職所得の受給に関する申告書」を勤務先に提出している一般従業員(役員等ではない)を前提とした概算です。実際の税額は源泉徴収票等でご確認ください。</p>
+
+  <!-- ============ 広告枠A: 結果直下 ============ -->
+  <div class="ad-slot" data-slot="A"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="share">
+    <a class="share-x" target="_blank" rel="noopener">Xでシェア</a>
+    <a class="share-line" target="_blank" rel="noopener">LINEで送る</a>
+    <button class="share-copy">リンクをコピー</button>
+  </div>
+
+  <!-- ============ 記事パート ============ -->
+  <div class="article">
+
+    <h2>このツールの使い方</h2>
+    <p>1. <strong>退職金の額</strong>を入力します。<br>
+    2. <strong>勤続年数</strong>を入力して「計算する」を押すと、税金を差し引いた手取り額の目安が表示されます。</p>
+
+    <h2>退職金の税金の計算方法</h2>
+    <p>退職金は「退職所得控除」という大きな非課税枠があり、給与よりも税負担が軽くなるよう設計されています。計算は3ステップです。</p>
+    <table>
+      <tr><th>ステップ</th><th>計算式</th></tr>
+      <tr><td>① 退職所得控除額</td><td>勤続20年以下: 40万円×勤続年数(最低80万円)<br>勤続20年超: 800万円+70万円×(勤続年数−20年)</td></tr>
+      <tr><td>② 課税退職所得</td><td>(退職金 − 控除額)× 1/2 ※勤続5年超の場合</td></tr>
+      <tr><td>③ 税額</td><td>課税退職所得に所得税(累進課税+復興税)と住民税10%を適用</td></tr>
+    </table>
+    <p>たとえば勤続20年・退職金1,000万円の場合、控除額は40万円×20年=800万円。(1,000万円−800万円)×1/2=100万円が課税対象となり、税額は所得税・住民税合わせて十数万円程度で済みます。給与としてもらう場合よりかなり優遇されていることがわかります。</p>
+    <p>2022年の税制改正により、<strong>勤続5年以下</strong>の従業員(役員等以外)については、控除後の金額のうち300万円を超える部分に1/2課税の優遇が適用されなくなりました。短期間の勤務で高額の退職金(退職一時金化した給与など)を受け取るケースの節税策を防ぐための改正です。</p>
+
+    <h2>よくある質問</h2>
+    <div class="faq-item">
+      <h3>退職金には税金がかかりますか?</h3>
+      <p>かかりますが、給与よりかなり優遇された計算方法です。退職所得控除という大きな非課税枠があり、さらに控除後の金額の半分だけが課税対象になるため(勤続5年超の場合)、税負担は軽くなっています。</p>
+    </div>
+    <div class="faq-item">
+      <h3>勤続年数が短いと税金は増えますか?</h3>
+      <p>2022年の税制改正により、勤続5年以下の従業員は「控除後の金額のうち300万円を超える部分」について1/2課税の優遇が適用されなくなりました。短期間で高額の退職金を受け取るケースを念頭に置いた改正です。</p>
+    </div>
+    <div class="faq-item">
+      <h3>「退職所得の受給に関する申告書」を出さないとどうなりますか?</h3>
+      <p>この申告書を勤務先に提出しないと、退職所得控除が適用されず、退職金の一律20.42%が源泉徴収されます。多くの場合は払いすぎになるため、確定申告で還付を受けられますが、提出しておけば最初から正しい税額で済みます。</p>
+    </div>
+
+  </div>
+
+  <!-- ============ 広告枠B: 記事後 ============ -->
+  <div class="ad-slot" data-slot="B"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="related">
+    <h2>関連ツール</h2>
+    <ul>
+      <li><a href="../tetori-keisan/">手取り計算ツール</a></li>
+      <li><a href="../yukyu-nissu/">有給休暇 付与日数計算ツール</a></li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav>
+      <a href="../../">ホーム</a>
+      <a href="../../about/">運営者情報</a>
+      <a href="../../privacy/">プライバシーポリシー</a>
+      <a href="../../contact/">お問い合わせ</a>
+    </nav>
+    <p>© <span class="copyright-year"></span> カンタン計算ラボ</p>
+  </div>
+</footer>
+
+<script src="../../js/common.js"></script>
+<script>
+/* 所得税(復興特別所得税込み)。課税所得は千円未満切捨て。tetori-keisanと同一の速算表 */
+function incomeTax(taxable) {
+  taxable = Math.floor(taxable / 1000) * 1000;
+  if (taxable <= 0) return 0;
+  var t;
+  if (taxable <= 1950000) t = taxable * 0.05;
+  else if (taxable <= 3300000) t = taxable * 0.10 - 97500;
+  else if (taxable <= 6950000) t = taxable * 0.20 - 427500;
+  else if (taxable <= 9000000) t = taxable * 0.23 - 636000;
+  else if (taxable <= 18000000) t = taxable * 0.33 - 1536000;
+  else if (taxable <= 40000000) t = taxable * 0.40 - 2796000;
+  else t = taxable * 0.45 - 4796000;
+  return Math.floor(t * 1.021);
+}
+
+document.getElementById('calcBtn').addEventListener('click', function () {
+  var amount = parseFloat(document.getElementById('amount').value);
+  var years = Math.ceil(parseFloat(document.getElementById('years').value));
+
+  if (isNaN(amount) || amount <= 0) { alert('退職金の額を入力してください'); return; }
+  if (isNaN(years) || years < 1) { alert('勤続年数を入力してください'); return; }
+
+  // ① 退職所得控除額
+  var deduction = years <= 20 ? Math.max(400000 * years, 800000) : 8000000 + 700000 * (years - 20);
+
+  var diff = Math.max(amount - deduction, 0);
+
+  // ② 課税退職所得(2022年改正: 勤続5年以下は300万円超過部分に1/2課税の優遇なし)
+  var taxable;
+  if (years <= 5 && diff > 3000000) {
+    taxable = 1500000 + (diff - 3000000);
+  } else {
+    taxable = diff / 2;
+  }
+  taxable = Math.floor(taxable);
+
+  // ③ 税額
+  var shotokuzei = incomeTax(taxable);
+  var juuminzei = Math.floor(taxable * 0.10 / 100) * 100;
+
+  var net = amount - shotokuzei - juuminzei;
+
+  var rows = '';
+  rows += '<tr><th>退職所得控除額</th><td>' + yen(deduction) + '</td></tr>';
+  rows += '<tr><th>課税退職所得</th><td>' + yen(taxable) + '</td></tr>';
+  rows += '<tr><th>所得税(復興税込み)</th><td>−' + yen(shotokuzei) + '</td></tr>';
+  rows += '<tr><th>住民税</th><td>−' + yen(juuminzei) + '</td></tr>';
+
+  document.getElementById('resultAmount').textContent = yen(net);
+  document.getElementById('resultTable').innerHTML = rows;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+
+</body>
+</html>
