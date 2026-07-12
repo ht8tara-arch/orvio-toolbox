@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>残業代計算ツール｜月給から1分でわかる無料シミュレーター - カンタン計算ラボ</title>
+<meta name="description" content="月給と残業時間を入れるだけで、残業代の概算を自動計算。深夜残業・休日出勤・月60時間超の割増(25%〜75%)にも対応した無料ツールです。登録不要。">
+<link rel="canonical" href="https://orvio-works.com/tools/zangyo-keisan/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="残業代計算ツール｜月給から1分でわかる無料シミュレーター">
+<meta property="og:description" content="月給と残業時間を入れるだけで残業代の概算を自動計算。深夜・休日・60時間超の割増にも対応。">
+<meta property="og:url" content="https://orvio-works.com/tools/zangyo-keisan/">
+<meta property="og:image" content="https://orvio-works.com/assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "残業代計算ツール",
+  "url": "https://orvio-works.com/tools/zangyo-keisan/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "固定残業代(みなし残業代)をもらっていても残業代は請求できますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "固定残業代に含まれる時間を超えて働いた分は、別途残業代が発生します。例えば「固定残業代30時間分」の契約で45時間残業した場合、超過15時間分は追加で支払われる必要があります。" }
+    },
+    {
+      "@type": "Question",
+      "name": "管理職でも残業代は出ますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "労働基準法上の「管理監督者」に該当する場合は時間外・休日の割増賃金の対象外ですが、深夜割増(22時〜5時)は管理監督者にも適用されます。また、肩書きが管理職でも実態が伴わない「名ばかり管理職」は残業代の対象です。" }
+    },
+    {
+      "@type": "Question",
+      "name": "残業代は何年前までさかのぼって請求できますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "賃金請求権の消滅時効により、当面3年分までさかのぼって請求できます(2020年4月以降に発生した賃金)。" }
+    },
+    {
+      "@type": "Question",
+      "name": "月給に含めない手当はありますか?",
+      "acceptedAnswer": { "@type": "Answer", "text": "残業代の基礎となる賃金からは、家族手当・通勤手当・住宅手当・別居手当・子女教育手当・臨時の賃金・1か月を超える期間ごとの賃金(賞与など)を除外できます。基本給+役職手当などを入力してください。" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="../../">カンタン<span>計算ラボ</span></a>
+  </div>
+</header>
+
+<main class="container">
+
+  <nav class="breadcrumb"><a href="../../">ホーム</a> › 残業代計算ツール</nav>
+
+  <h1>残業代計算ツール</h1>
+  <p class="lead">月給と残業時間を入力するだけで、法定の割増率(25%〜75%)にもとづく残業代の概算がわかります。深夜残業・休日出勤・月60時間超にも対応。</p>
+
+  <!-- ============ ツール本体 ============ -->
+  <div class="card tool-card">
+    <div class="field-row">
+      <div class="field">
+        <label for="salary">月給(円) <span class="hint">基本給+役職手当など ※通勤・住宅手当は除く</span></label>
+        <input type="number" id="salary" inputmode="numeric" placeholder="例: 300000" min="0">
+      </div>
+      <div class="field">
+        <label for="monthlyHours">月の所定労働時間 <span class="hint">不明なら160のままでOK</span></label>
+        <input type="number" id="monthlyHours" inputmode="numeric" value="160" min="1">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="otNormal">時間外労働(時間/月) <span class="hint">いわゆる普通の残業</span></label>
+        <input type="number" id="otNormal" inputmode="decimal" placeholder="例: 30" min="0">
+      </div>
+      <div class="field">
+        <label for="otNight">うち深夜(22時〜5時)の時間</label>
+        <input type="number" id="otNight" inputmode="decimal" placeholder="例: 5" min="0" value="0">
+      </div>
+    </div>
+    <div class="field">
+      <label for="otHoliday">法定休日労働(時間/月) <span class="hint">週1日の法定休日に出勤した時間</span></label>
+      <input type="number" id="otHoliday" inputmode="decimal" placeholder="例: 0" min="0" value="0">
+    </div>
+    <button class="btn-primary" id="calcBtn">残業代を計算する</button>
+
+    <div class="result" id="result">
+      <p class="result-main">残業代の概算(月額)</p>
+      <p class="result-amount" id="resultAmount"></p>
+      <table id="resultTable"></table>
+    </div>
+  </div>
+
+  <p class="note">※ 本ツールの計算結果は法定の最低割増率にもとづく概算です。実際の支給額は就業規則・雇用契約・端数処理などにより異なります。正確な金額は勤務先または専門家にご確認ください。</p>
+
+  <!-- ============ 広告枠A: 結果直下 ============ -->
+  <div class="ad-slot" data-slot="A"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="share">
+    <a class="share-x" target="_blank" rel="noopener">Xでシェア</a>
+    <a class="share-line" target="_blank" rel="noopener">LINEで送る</a>
+    <button class="share-copy">リンクをコピー</button>
+  </div>
+
+  <!-- ============ 記事パート ============ -->
+  <div class="article">
+
+    <h2>このツールの使い方</h2>
+    <p>使い方は3ステップです。</p>
+    <p>1. <strong>月給</strong>を入力します。残業代の基礎になるのは「基本給+役職手当・資格手当など」です。通勤手当・住宅手当・家族手当は法律上除外できるため、含めないほうが実態に近くなります。<br>
+    2. <strong>月の所定労働時間</strong>を入力します。「1日の所定労働時間 × 月の所定労働日数」です。不明な場合は一般的な目安の160時間のままで構いません。<br>
+    3. <strong>残業時間</strong>を入力して「計算する」を押すと、割増率ごとの内訳と合計が表示されます。</p>
+
+    <h2>残業代の計算方法(法定割増率)</h2>
+    <p>残業代は「1時間あたりの基礎賃金 × 割増率 × 残業時間」で計算します。1時間あたりの基礎賃金は <strong>月給 ÷ 月の所定労働時間</strong> です。労働基準法で定められた最低割増率は次のとおりです。</p>
+    <table>
+      <tr><th>労働の種類</th><th>割増率</th><th>倍率</th></tr>
+      <tr><td>時間外労働(法定の週40時間・1日8時間を超えた分)</td><td>25%以上</td><td>1.25倍</td></tr>
+      <tr><td>時間外労働のうち月60時間を超えた分</td><td>50%以上</td><td>1.50倍</td></tr>
+      <tr><td>深夜労働(22時〜翌5時)</td><td>+25%</td><td>上記に加算</td></tr>
+      <tr><td>法定休日労働(週1日の法定休日)</td><td>35%以上</td><td>1.35倍</td></tr>
+      <tr><td>時間外(60時間超)+深夜</td><td>75%以上</td><td>1.75倍</td></tr>
+    </table>
+    <p>たとえば月給30万円・所定労働時間160時間なら、1時間あたりの基礎賃金は1,875円。通常の残業を30時間した場合、1,875円 × 1.25 × 30時間 = <strong>70,312円</strong>が残業代の目安になります。</p>
+    <p>なお、月60時間超の50%割増は2023年4月から中小企業にも適用されており、現在は企業規模を問わずすべての会社が対象です。</p>
+
+    <h2>よくある質問</h2>
+    <div class="faq-item">
+      <h3>固定残業代(みなし残業代)をもらっていても残業代は請求できますか?</h3>
+      <p>固定残業代に含まれる時間を超えて働いた分は、別途残業代が発生します。例えば「固定残業代30時間分」の契約で45時間残業した場合、超過15時間分は追加で支払われる必要があります。</p>
+    </div>
+    <div class="faq-item">
+      <h3>管理職でも残業代は出ますか?</h3>
+      <p>労働基準法上の「管理監督者」に該当する場合は時間外・休日の割増賃金の対象外ですが、深夜割増(22時〜5時)は管理監督者にも適用されます。また、肩書きが管理職でも権限や待遇の実態が伴わない「名ばかり管理職」は残業代の対象になり得ます。</p>
+    </div>
+    <div class="faq-item">
+      <h3>残業代は何年前までさかのぼって請求できますか?</h3>
+      <p>賃金請求権の消滅時効により、当面3年分までさかのぼって請求できます(2020年4月以降に発生した賃金が対象)。</p>
+    </div>
+    <div class="faq-item">
+      <h3>月給に含めない手当はありますか?</h3>
+      <p>残業代の基礎となる賃金からは、家族手当・通勤手当・住宅手当・別居手当・子女教育手当・臨時に支払われた賃金・賞与を除外できます。基本給に役職手当・資格手当などを足した金額を入力してください。</p>
+    </div>
+
+  </div>
+
+  <!-- ============ 広告枠B: 記事後 ============ -->
+  <div class="ad-slot" data-slot="B"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="related">
+    <h2>関連ツール</h2>
+    <ul>
+      <li>手取り計算ツール(準備中)</li>
+      <li>退職金の税金計算ツール(準備中)</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav>
+      <a href="../../">ホーム</a>
+      <a href="../../about/">運営者情報</a>
+      <a href="../../privacy/">プライバシーポリシー</a>
+      <a href="../../contact/">お問い合わせ</a>
+    </nav>
+    <p>© <span class="copyright-year"></span> カンタン計算ラボ</p>
+  </div>
+</footer>
+
+<script src="../../js/common.js"></script>
+<script>
+document.getElementById('calcBtn').addEventListener('click', function () {
+  var salary = parseFloat(document.getElementById('salary').value);
+  var monthlyHours = parseFloat(document.getElementById('monthlyHours').value);
+  var otNormal = parseFloat(document.getElementById('otNormal').value) || 0;
+  var otNight = parseFloat(document.getElementById('otNight').value) || 0;
+  var otHoliday = parseFloat(document.getElementById('otHoliday').value) || 0;
+
+  if (isNaN(salary) || salary <= 0) { alert('月給を入力してください'); return; }
+  if (isNaN(monthlyHours) || monthlyHours <= 0) { alert('月の所定労働時間を入力してください'); return; }
+  if (otNight > otNormal) { alert('「うち深夜」の時間は時間外労働の時間以下で入力してください'); return; }
+
+  var hourly = salary / monthlyHours;
+
+  // 時間外労働: 60時間以下は1.25倍、60時間超は1.5倍
+  var otUnder60 = Math.min(otNormal, 60);
+  var otOver60 = Math.max(otNormal - 60, 0);
+  var payUnder60 = hourly * 1.25 * otUnder60;
+  var payOver60 = hourly * 1.5 * otOver60;
+
+  // 深夜は+0.25を加算(時間外の中の深夜分)
+  var payNight = hourly * 0.25 * otNight;
+
+  // 法定休日は1.35倍
+  var payHoliday = hourly * 1.35 * otHoliday;
+
+  var total = payUnder60 + payOver60 + payNight + payHoliday;
+
+  var rows = '';
+  rows += '<tr><th>1時間あたりの基礎賃金</th><td>' + yen(hourly) + '</td></tr>';
+  if (otUnder60 > 0) rows += '<tr><th>時間外(60時間以下)×1.25</th><td>' + yen(payUnder60) + '</td></tr>';
+  if (otOver60 > 0) rows += '<tr><th>時間外(60時間超)×1.50</th><td>' + yen(payOver60) + '</td></tr>';
+  if (otNight > 0) rows += '<tr><th>深夜割増(+0.25)</th><td>' + yen(payNight) + '</td></tr>';
+  if (otHoliday > 0) rows += '<tr><th>法定休日×1.35</th><td>' + yen(payHoliday) + '</td></tr>';
+  rows += '<tr><th>年間ベースの目安(×12)</th><td>' + yen(total * 12) + '</td></tr>';
+
+  document.getElementById('resultAmount').textContent = yen(total);
+  document.getElementById('resultTable').innerHTML = rows;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+
+</body>
+</html>

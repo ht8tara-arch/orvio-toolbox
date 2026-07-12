@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#4c1d95"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1060" cy="-40" r="240" fill="#ffffff" opacity="0.07"/>
+  <circle cx="80" cy="640" r="200" fill="#ffffff" opacity="0.07"/>
+  
+  <text x="180" y="120" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="40" font-weight="600" fill="#ede9fe">地頭力診断</text>
+  <circle cx="330" cy="360" r="160" fill="#fbbf24"/>
+  <text x="330" y="435" text-anchor="middle" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="220" font-weight="800" fill="#ffffff">S</text>
+  <text x="560" y="330" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="64" font-weight="700" fill="#ffffff">結果はランクS</text>
+  <text x="560" y="410" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="44" font-weight="600" fill="#ede9fe">(上位層)</text>
+  <text x="560" y="520" font-family="Hiragino Sans, Noto Sans JP, sans-serif" font-size="32" fill="#ddd6fe">あなたも10問・約5分で診断できます</text>
+</svg>

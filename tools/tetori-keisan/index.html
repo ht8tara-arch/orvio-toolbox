@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>手取り計算ツール｜月給・年収から1分でわかる無料シミュレーター - カンタン計算ラボ</title>
+<meta name="description" content="額面の月給とボーナスを入れるだけで、社会保険料・所得税・住民税を引いた手取り額を自動計算。2025年税制改正(基礎控除58万円)対応の無料ツールです。登録不要。">
+<link rel="canonical" href="https://orvio-works.com/tools/tetori-keisan/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="手取り計算ツール|月給・年収から1分でわかる無料シミュレーター">
+<meta property="og:description" content="額面から社会保険料と税金を引いた手取り額を自動計算。2025年税制改正対応。">
+<meta property="og:url" content="https://orvio-works.com/tools/tetori-keisan/">
+<meta property="og:image" content="https://orvio-works.com/assets/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "手取り計算ツール",
+  "url": "https://orvio-works.com/tools/tetori-keisan/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="../../">カンタン<span>計算ラボ</span></a>
+  </div>
+</header>
+
+<main class="container">
+
+  <nav class="breadcrumb"><a href="../../">ホーム</a> › 手取り計算ツール</nav>
+
+  <h1>手取り計算ツール</h1>
+  <p class="lead">額面の月給とボーナスを入力するだけで、社会保険料・所得税・住民税を差し引いた手取り額の概算がわかります。2025年税制改正(基礎控除の引き上げ)に対応。</p>
+
+  <!-- ============ ツール本体 ============ -->
+  <div class="card tool-card">
+    <div class="field-row">
+      <div class="field">
+        <label for="salary">月給・額面(円) <span class="hint">総支給額(残業代込みの平均でOK)</span></label>
+        <input type="number" id="salary" inputmode="numeric" placeholder="例: 300000" min="0">
+      </div>
+      <div class="field">
+        <label for="bonus">賞与・年間合計(円) <span class="hint">なければ0のまま</span></label>
+        <input type="number" id="bonus" inputmode="numeric" value="0" min="0">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="age40">年齢 <span class="hint">40歳以上は介護保険料が加わります</span></label>
+        <select id="age40">
+          <option value="0">39歳以下</option>
+          <option value="1">40〜64歳</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="dependents">扶養親族の人数 <span class="hint">配偶者・子など(いなければ0)</span></label>
+        <select id="dependents">
+          <option value="0">0人</option>
+          <option value="1">1人</option>
+          <option value="2">2人</option>
+          <option value="3">3人</option>
+          <option value="4">4人</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-primary" id="calcBtn">手取りを計算する</button>
+
+    <div class="result" id="result">
+      <p class="result-main">月々の手取り額の目安</p>
+      <p class="result-amount" id="resultAmount"></p>
+      <table id="resultTable"></table>
+    </div>
+  </div>
+
+  <p class="note">※ 協会けんぽの全国平均的な保険料率と法定の税額表にもとづく概算です。健康保険組合・お住まいの自治体・各種控除(iDeCo、生命保険料控除、住宅ローン控除など)により実際の手取りは変わります。また住民税は前年の所得に対して課税されるため、社会人1年目は住民税分だけ手取りが多くなります。</p>
+
+  <!-- ============ 広告枠A: 結果直下 ============ -->
+  <div class="ad-slot" data-slot="A"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="share">
+    <a class="share-x" target="_blank" rel="noopener">Xでシェア</a>
+    <a class="share-line" target="_blank" rel="noopener">LINEで送る</a>
+    <button class="share-copy">リンクをコピー</button>
+  </div>
+
+  <!-- ============ 記事パート ============ -->
+  <div class="article">
+
+    <h2>このツールの使い方</h2>
+    <p>1. <strong>月給(額面)</strong>を入力します。基本給に手当や平均的な残業代を含めた「総支給額」です。<br>
+    2. <strong>賞与の年間合計</strong>を入力します(年2回・各50万円なら100万円)。<br>
+    3. 年齢区分と扶養親族の人数を選んで「計算する」を押すと、社会保険料・税金の内訳と手取り額が表示されます。</p>
+
+    <h2>手取り額の計算方法</h2>
+    <p>額面から差し引かれるのは大きく分けて「社会保険料」と「税金」の2つです。本ツールで使用している料率・計算基準は次のとおりです。</p>
+    <table>
+      <tr><th>項目</th><th>本人負担</th><th>備考</th></tr>
+      <tr><td>健康保険料</td><td>約5.0%</td><td>協会けんぽの全国平均(労使折半後)</td></tr>
+      <tr><td>介護保険料</td><td>約0.8%</td><td>40〜64歳のみ(労使折半後)</td></tr>
+      <tr><td>厚生年金保険料</td><td>9.15%</td><td>18.3%の労使折半。標準報酬月額の上限65万円</td></tr>
+      <tr><td>雇用保険料</td><td>0.55%</td><td>一般の事業の労働者負担分</td></tr>
+      <tr><td>所得税</td><td>5〜45%の累進</td><td>復興特別所得税(2.1%)を含めて計算</td></tr>
+      <tr><td>住民税</td><td>約10%+均等割</td><td>前年所得に対して課税</td></tr>
+    </table>
+    <p>所得税の計算では、2025年の税制改正で引き上げられた<strong>基礎控除58万円</strong>と<strong>給与所得控除(最低65万円)</strong>を適用しています(住民税の基礎控除は43万円)。扶養親族1人につき扶養控除38万円(住民税33万円)として計算しています。</p>
+    <p>ざっくりした目安として、額面月収30万円・賞与なし・扶養なしの場合、社会保険料が約4.4万円、所得税・住民税が合わせて約1.8万円で、<strong>手取りは額面の約79%</strong>になります。年収が上がるほど累進課税でこの割合は下がっていきます。</p>
+
+    <h2>よくある質問</h2>
+    <div class="faq-item">
+      <h3>新社会人ですが、計算結果より手取りが多いのはなぜ?</h3>
+      <p>住民税は「前年の所得」に対して課税されるためです。社会人1年目は前年の所得がない(少ない)ため住民税がほぼ引かれず、2年目の6月から天引きが始まります。「2年目なのに手取りが減った」と感じるのはこのためです。</p>
+    </div>
+    <div class="faq-item">
+      <h3>ボーナスからも社会保険料や税金は引かれますか?</h3>
+      <p>引かれます。賞与からも健康保険料・厚生年金保険料・雇用保険料と所得税が天引きされます。本ツールでは賞与にも給与と同じ料率を適用して年間の手取りを計算しています。</p>
+    </div>
+    <div class="faq-item">
+      <h3>計算結果と給与明細が微妙に違うのはなぜ?</h3>
+      <p>実際の社会保険料は「標準報酬月額」という等級表で決まるため、料率をそのまま掛けた金額とは数百円〜数千円ずれます。また健康保険料率は都道府県や健康保険組合によって異なります。本ツールはあくまで全国平均ベースの概算です。</p>
+    </div>
+    <div class="faq-item">
+      <h3>iDeCoやふるさと納税をすると手取りは増えますか?</h3>
+      <p>iDeCoの掛金は全額所得控除になるため、所得税・住民税が下がります(その分は将来の年金として積み立て)。ふるさと納税は手取りが増えるわけではなく、実質2,000円の負担で返礼品を受け取れる仕組みです。いずれも本ツールの計算には含まれていません。</p>
+    </div>
+
+  </div>
+
+  <!-- ============ 広告枠B: 記事後 ============ -->
+  <div class="ad-slot" data-slot="B"><!-- AdSense承認後ここにコードを貼る --></div>
+
+  <div class="related">
+    <h2>関連ツール</h2>
+    <ul>
+      <li><a href="../zangyo-keisan/">残業代計算ツール</a></li>
+      <li>退職金の税金計算ツール(準備中)</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav>
+      <a href="../../">ホーム</a>
+      <a href="../../about/">運営者情報</a>
+      <a href="../../privacy/">プライバシーポリシー</a>
+      <a href="../../contact/">お問い合わせ</a>
+    </nav>
+    <p>© <span class="copyright-year"></span> カンタン計算ラボ</p>
+  </div>
+</footer>
+
+<script src="../../js/common.js"></script>
+<script>
+/* ---- 料率・控除(年次更新箇所: CLAUDE.mdの年次更新リスト参照) ---- */
+var RATE = {
+  kenpo: 0.050,        // 健康保険 本人負担(協会けんぽ全国平均ベース)
+  kaigo: 0.008,        // 介護保険 本人負担(40-64歳)
+  kousei: 0.0915,      // 厚生年金 本人負担
+  kouseiCap: 650000,   // 厚生年金 標準報酬月額の上限
+  koyou: 0.0055,       // 雇用保険 労働者負担(一般の事業)
+  basicDeduct: 580000,       // 所得税の基礎控除(2025年改正)
+  basicDeductJuumin: 430000, // 住民税の基礎控除
+  dependentDeduct: 380000,       // 扶養控除(所得税)
+  dependentDeductJuumin: 330000, // 扶養控除(住民税)
+  salaryDeductMin: 650000        // 給与所得控除の最低額(2025年改正)
+};
+
+/* 給与所得控除 */
+function salaryDeduction(income) {
+  var d;
+  if (income <= 1800000) d = income * 0.4 - 100000;
+  else if (income <= 3600000) d = income * 0.3 + 80000;
+  else if (income <= 6600000) d = income * 0.2 + 440000;
+  else if (income <= 8500000) d = income * 0.1 + 1100000;
+  else d = 1950000;
+  return Math.max(d, RATE.salaryDeductMin);
+}
+
+/* 所得税(復興特別所得税込み)。課税所得は千円未満切捨て */
+function incomeTax(taxable) {
+  taxable = Math.floor(taxable / 1000) * 1000;
+  if (taxable <= 0) return 0;
+  var t;
+  if (taxable <= 1950000) t = taxable * 0.05;
+  else if (taxable <= 3300000) t = taxable * 0.10 - 97500;
+  else if (taxable <= 6950000) t = taxable * 0.20 - 427500;
+  else if (taxable <= 9000000) t = taxable * 0.23 - 636000;
+  else if (taxable <= 18000000) t = taxable * 0.33 - 1536000;
+  else if (taxable <= 40000000) t = taxable * 0.40 - 2796000;
+  else t = taxable * 0.45 - 4796000;
+  return Math.floor(t * 1.021);
+}
+
+/* 住民税(所得割10%+均等割等 約5,000円) */
+function residentTax(taxable) {
+  taxable = Math.floor(taxable / 1000) * 1000;
+  if (taxable <= 0) return 0;
+  return Math.floor(taxable * 0.10) + 5000;
+}
+
+/* 月給・賞与から年間の内訳を計算 */
+function annualBreakdown(salaryMonthly, bonusAnnual, over40, dependents) {
+  var grossAnnual = salaryMonthly * 12 + bonusAnnual;
+
+  // 社会保険料(月給分+賞与分。厚生年金は月額上限あり)
+  var kenpoRate = RATE.kenpo + (over40 ? RATE.kaigo : 0);
+  var shakaiMonthly = salaryMonthly * kenpoRate
+    + Math.min(salaryMonthly, RATE.kouseiCap) * RATE.kousei
+    + salaryMonthly * RATE.koyou;
+  var shakaiBonus = bonusAnnual * (kenpoRate + RATE.kousei + RATE.koyou);
+  var shakaiAnnual = shakaiMonthly * 12 + shakaiBonus;
+
+  // 課税所得(所得税・住民税それぞれの基礎控除で計算)
+  var shotoku = grossAnnual - salaryDeduction(grossAnnual);
+  var taxableIncome = shotoku - shakaiAnnual - RATE.basicDeduct - dependents * RATE.dependentDeduct;
+  var taxableJuumin = shotoku - shakaiAnnual - RATE.basicDeductJuumin - dependents * RATE.dependentDeductJuumin;
+
+  var shotokuzei = incomeTax(taxableIncome);
+  var juuminzei = residentTax(taxableJuumin);
+
+  return {
+    gross: grossAnnual,
+    shakai: shakaiAnnual,
+    shotokuzei: shotokuzei,
+    juuminzei: juuminzei,
+    net: grossAnnual - shakaiAnnual - shotokuzei - juuminzei
+  };
+}
+
+document.getElementById('calcBtn').addEventListener('click', function () {
+  var salary = parseFloat(document.getElementById('salary').value);
+  var bonus = parseFloat(document.getElementById('bonus').value) || 0;
+  var over40 = document.getElementById('age40').value === '1';
+  var dependents = parseInt(document.getElementById('dependents').value, 10);
+
+  if (isNaN(salary) || salary <= 0) { alert('月給(額面)を入力してください'); return; }
+
+  // 月々の手取り目安は「賞与を除いた給与のみ」で計算(賞与は年間の数字に反映)
+  var salaryOnly = annualBreakdown(salary, 0, over40, dependents);
+  var full = annualBreakdown(salary, bonus, over40, dependents);
+  var netMonthly = salaryOnly.net / 12;
+
+  var rows = '';
+  rows += '<tr><th>額面年収(賞与込み)</th><td>' + yen(full.gross) + '</td></tr>';
+  rows += '<tr><th>社会保険料(年間)</th><td>−' + yen(full.shakai) + '</td></tr>';
+  rows += '<tr><th>所得税(年間・復興税込み)</th><td>−' + yen(full.shotokuzei) + '</td></tr>';
+  rows += '<tr><th>住民税(年間)</th><td>−' + yen(full.juuminzei) + '</td></tr>';
+  rows += '<tr><th>年間の手取り額</th><td>' + yen(full.net) + '</td></tr>';
+
+  document.getElementById('resultAmount').textContent = yen(netMonthly);
+  document.getElementById('resultTable').innerHTML = rows;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+</script>
+
+</body>
+</html>
