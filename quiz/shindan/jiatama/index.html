@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>地頭力診断｜論理・確率・推定の10問でS〜Cランク判定(無料) - ロジック演習室</title>
+<meta name="description" content="論理・確率・フェルミ推定の10問に答えるだけで、あなたの地頭力をS〜Cランクで判定。就活の筆記・面接対策の腕試しに。登録不要・約5分・完全無料。">
+<link rel="canonical" href="https://orvio-works.com/quiz/shindan/jiatama/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="地頭力診断|10問でS〜Cランク判定(無料)">
+<meta property="og:description" content="論理・確率・推定の10問であなたの地頭力を判定。登録不要・約5分。">
+<meta property="og:url" content="https://orvio-works.com/quiz/shindan/jiatama/">
+<meta property="og:image" content="https://orvio-works.com/assets/ogp-quiz.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "name": "地頭力診断",
+  "url": "https://orvio-works.com/quiz/shindan/jiatama/",
+  "description": "論理・確率・フェルミ推定の10問で地頭力をS〜Cランクで判定する無料診断。",
+  "educationalAlignment": { "@type": "AlignmentObject", "alignmentType": "educationalSubject", "targetName": "論理的思考" }
+}
+</script>
+</head>
+<body class="quiz-theme">
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/quiz/">ロジック<span>演習室</span></a>
+  </div>
+</header>
+
+<main class="container">
+
+  <nav class="breadcrumb"><a href="/quiz/">演習室トップ</a> › 地頭力診断</nav>
+
+  <!-- ===== スタート画面 ===== -->
+  <div id="screenStart">
+    <h1>地頭力診断</h1>
+    <p class="lead">論理・確率・推定のクイック10問で、あなたの地頭力をS〜Cランクで判定します。制限時間はありませんが、テンポよく答えるのがおすすめ。登録不要・約5分です。</p>
+    <div class="card">
+      <ul style="margin:0; padding-left:20px; font-size:14px;">
+        <li>全10問・4択</li>
+        <li>電卓・メモは使わず頭の中だけで</li>
+        <li>結果はS・A・B・Cの4ランクで判定</li>
+      </ul>
+    </div>
+    <br>
+    <button class="btn-primary" id="startBtn">診断をはじめる</button>
+  </div>
+
+  <!-- ===== 出題画面 ===== -->
+  <div id="screenQuiz" style="display:none;">
+    <div class="progress"><div class="bar" id="progressBar" style="width:0%"></div></div>
+    <p style="font-size:13px; color:var(--muted); margin:0 0 8px;"><span id="qNum"></span> / 10 問</p>
+    <div class="quiz-question" id="qText"></div>
+    <div class="choice-list" id="choices"></div>
+  </div>
+
+  <!-- ===== 結果画面 ===== -->
+  <div id="screenResult" style="display:none;">
+    <div class="card rank-card">
+      <p class="rank-label">あなたの地頭力は…</p>
+      <div class="rank-badge" id="rankBadge"></div>
+      <h2 style="border:none; padding:0; font-size:20px; margin:8px 0 0;" id="rankName"></h2>
+      <p style="font-size:14px; color:var(--muted);" id="rankScore"></p>
+      <p class="rank-desc" id="rankDesc"></p>
+    </div>
+
+    <div class="ad-slot" data-slot="A"><!-- AdSense承認後ここにコードを貼る --></div>
+
+    <div class="share">
+      <a class="share-x" id="shareX" target="_blank" rel="noopener">結果をXでシェア</a>
+      <a class="share-line" id="shareLine" target="_blank" rel="noopener">LINEで送る</a>
+    </div>
+
+    <h2>答え合わせ</h2>
+    <div id="review"></div>
+
+    <div class="related">
+      <h2>もっと鍛える</h2>
+      <ul>
+        <li><a href="/quiz/">論理クイズ・フェルミ推定の問題一覧(解説つき)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ad-slot" data-slot="B"><!-- AdSense承認後ここにコードを貼る --></div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav>
+      <a href="/quiz/">演習室トップ</a>
+      <a href="/">カンタン計算ラボ</a>
+      <a href="/about/">運営者情報</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </nav>
+    <p>© <span class="copyright-year"></span> カンタン計算ラボ</p>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+// 出題データ: text=問題文, c=選択肢4つ, a=正解のindex, why=一言解説
+var QUESTIONS = [
+  {
+    text: "「すべての営業部員は朝型だ。この会社のある企画部員は営業部を兼務している。」このとき確実に言えるのは?",
+    c: ["ある企画部員は朝型だ", "すべての企画部員は朝型だ", "朝型の社員はみんな営業部員だ", "確実に言えることはない"],
+    a: 0,
+    why: "兼務している企画部員は営業部員でもあるので朝型。「ある(少なくとも1人の)企画部員は朝型」が確実に言えます。"
+  },
+  {
+    text: "数列「2, 3, 5, 8, 13, ?」の次に来る数は?",
+    c: ["18", "20", "21", "26"],
+    a: 2,
+    why: "前の2つの数の和が次の数(フィボナッチ型)。8+13=21です。"
+  },
+  {
+    text: "今日が水曜日のとき、100日後は何曜日?",
+    c: ["月曜日", "金曜日", "土曜日", "日曜日"],
+    a: 1,
+    why: "100 ÷ 7 = 14 あまり 2。水曜の2日後で金曜日です。"
+  },
+  {
+    text: "定価1,000円の商品を20%値下げし、その後20%値上げした。今の価格は?",
+    c: ["1,000円(元通り)", "960円", "1,040円", "980円"],
+    a: 1,
+    why: "1,000×0.8=800円、800×1.2=960円。率の上げ下げは対称ではありません。"
+  },
+  {
+    text: "「雨が降れば、試合は中止になる。試合は中止にならなかった。」確実に言えるのは?",
+    c: ["雨が降った", "雨は降らなかった", "試合は行われた", "確実に言えることはない"],
+    a: 1,
+    why: "対偶「中止でない→雨でない」より、雨は降らなかった。なお「中止にならなかった=行われた」とは限りません(そもそも予定がなかった可能性)。"
+  },
+  {
+    text: "日本全国のコンビニの店舗数に最も近いのは?",
+    c: ["約6千店", "約6万店", "約60万店", "約600万店"],
+    a: 1,
+    why: "人口1.2億人÷1店舗あたり約2,000人≒6万店。実際は約5.6万店です。"
+  },
+  {
+    text: "行きは時速60km、帰りは同じ道を時速40kmで往復した。平均時速は?",
+    c: ["50km/h", "48km/h", "52km/h", "45km/h"],
+    a: 1,
+    why: "単純平均の50ではなく調和平均。片道120kmなら行き2時間+帰り3時間=240km/5時間=48km/h。遅い方に引っ張られます。"
+  },
+  {
+    text: "30人のクラスで、犬好きが18人、猫好きが15人、どちらも好きでない人が4人。両方好きな人は?",
+    c: ["3人", "5人", "7人", "9人"],
+    a: 2,
+    why: "少なくとも一方が好きな人は30−4=26人。18+15−26=7人が重複(両方好き)です。"
+  },
+  {
+    text: "サイコロを2個同時に振ったとき、出た目の和が7になる確率は?",
+    c: ["1/12", "1/9", "1/6", "1/4"],
+    a: 2,
+    why: "全36通りのうち和が7は(1,6)(2,5)(3,4)(4,3)(5,2)(6,1)の6通り。6/36=1/6。和が7は実は一番出やすい目です。"
+  },
+  {
+    text: "同じ仕事を終えるのに、Aさん1人だと6時間、Bさん1人だと3時間かかる。2人で一緒にやると?",
+    c: ["1.5時間", "2時間", "2.5時間", "4.5時間"],
+    a: 1,
+    why: "1時間あたりAは1/6、Bは1/3=2/6。合わせて3/6=1/2なので、2時間で完了します。"
+  }
+];
+
+var current = 0;
+var answers = [];
+
+document.getElementById('startBtn').addEventListener('click', function () {
+  document.getElementById('screenStart').style.display = 'none';
+  document.getElementById('screenQuiz').style.display = 'block';
+  showQuestion();
+});
+
+function showQuestion() {
+  var q = QUESTIONS[current];
+  document.getElementById('qNum').textContent = current + 1;
+  document.getElementById('progressBar').style.width = (current / QUESTIONS.length * 100) + '%';
+  document.getElementById('qText').innerHTML = 'Q' + (current + 1) + '. ' + q.text;
+  var box = document.getElementById('choices');
+  box.innerHTML = '';
+  q.c.forEach(function (choice, i) {
+    var btn = document.createElement('button');
+    btn.textContent = choice;
+    btn.addEventListener('click', function () {
+      answers.push(i);
+      current++;
+      if (current < QUESTIONS.length) { showQuestion(); window.scrollTo(0, 0); }
+      else { showResult(); }
+    });
+    box.appendChild(btn);
+  });
+}
+
+function showResult() {
+  var score = 0;
+  QUESTIONS.forEach(function (q, i) { if (answers[i] === q.a) score++; });
+
+  var rank, name, desc;
+  if (score >= 9) {
+    rank = 'S'; name = 'ランクS(上位層)';
+    desc = '初見のひっかけを落ち着いて処理できる上位層です。コンサル・金融など筆記難易度の高い選考でも十分戦えます。次はケース面接など応用形式の対策へ。';
+  } else if (score >= 7) {
+    rank = 'A'; name = 'ランクA(実戦レベル)';
+    desc = '基礎の論理力はしっかりしています。落とした問題は「知っていれば数秒」の定石(余事象・対偶・率の掛け算)のはず。パターンを覚えるだけでSに届く、伸びしろ最大のゾーンです。';
+  } else if (score >= 5) {
+    rank = 'B'; name = 'ランクB(基礎固め期)';
+    desc = '基礎はありますが、直感で答えたくなるひっかけで失点しています。「答えが即座に浮かんだら一度疑う」クセをつけるだけで正答率は大きく変わります。';
+  } else {
+    rank = 'C'; name = 'ランクC(伸びしろ最大)';
+    desc = 'まだ問題形式に慣れていないだけで、地頭そのものの判定ではありません。この手の問題は完全にパターン競技。1日1問、解説まで読む習慣から始めましょう。';
+  }
+
+  document.getElementById('screenQuiz').style.display = 'none';
+  document.getElementById('screenResult').style.display = 'block';
+  document.getElementById('rankBadge').textContent = rank;
+  document.getElementById('rankName').textContent = name;
+  document.getElementById('rankScore').textContent = '正解数: ' + score + ' / 10';
+  document.getElementById('rankDesc').textContent = desc;
+
+  // シェア先はランク別の静的結果ページ(OGPがランクごとに変わる)
+  var resultUrl = location.origin + '/quiz/shindan/jiatama/result/' + rank.toLowerCase() + '/';
+  var text = encodeURIComponent('地頭力診断の結果は「ランク' + rank + '」(' + score + '/10問正解)でした! #地頭力診断');
+  document.getElementById('shareX').href = 'https://twitter.com/intent/tweet?text=' + text + '&url=' + encodeURIComponent(resultUrl);
+  document.getElementById('shareLine').href = 'https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(resultUrl);
+
+  // 答え合わせ
+  var review = '';
+  QUESTIONS.forEach(function (q, i) {
+    var ok = answers[i] === q.a;
+    review += '<div class="faq-item"><h3>' + (ok ? '⭕' : '❌') + ' Q' + (i + 1) + '. ' + q.text + '</h3>'
+      + '<p><strong>正解: ' + q.c[q.a] + '</strong>'
+      + (ok ? '' : '(あなたの回答: ' + q.c[answers[i]] + ')')
+      + '<br>' + q.why + '</p></div>';
+  });
+  document.getElementById('review').innerHTML = review;
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

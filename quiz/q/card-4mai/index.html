@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4枚のカード｜論理クイズ(解答・解説つき) - ロジック演習室</title>
+<meta name="description" content="論理クイズ「4枚のカード」。テーブルに4枚のカードがあり、それぞれ片面にアルファベット、もう片面に数字が書かれています。見えている面は「A」「K」「… 解答と丁寧な解説つき。就活の筆記・面接対策に。">
+<link rel="canonical" href="https://orvio-works.com/quiz/q/card-4mai/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="4枚のカード｜論理クイズ(解答・解説つき) - ロジック演習室">
+<meta property="og:description" content="論理クイズ「4枚のカード」。テーブルに4枚のカードがあり、それぞれ片面にアルファベット、もう片面に数字が書かれています。見えている面は「A」「K」「… 解答と丁寧な解説つき。就活の筆記・面接対策に。">
+<meta property="og:url" content="https://orvio-works.com/quiz/q/card-4mai/">
+<meta property="og:image" content="https://orvio-works.com/assets/ogp-quiz.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="quiz-theme">
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/quiz/">ロジック<span>演習室</span></a>
+  </div>
+</header>
+
+<main class="container">
+
+  <nav class="breadcrumb"><a href="/quiz/">演習室トップ</a> › 4枚のカード</nav>
+
+  <div class="quiz-meta">
+    <span class="chip">論理クイズ</span>
+    <span class="chip">★★★ 難問</span>
+  </div>
+
+  <h1>4枚のカード</h1>
+
+  <div class="quiz-question">テーブルに4枚のカードがあり、それぞれ片面にアルファベット、もう片面に数字が書かれています。見えている面は「A」「K」「4」「7」です。<br><br>「母音のカードの裏は必ず偶数である」というルールが守られているか確かめるには、<strong>最低限どのカードをめくればよい</strong>でしょうか?</div>
+
+  <button class="btn-primary" id="revealBtn">答えと解説を見る</button>
+
+  <div class="answer-box" id="answerBox">
+    <div class="card">
+      <p class="answer-label">答え</p>
+      <p class="answer-text">「A」と「7」の2枚</p>
+      <p class="answer-label">解説</p>
+      <p>多くの人が「Aと4」と答えますが、正解は「Aと7」です。<br><br>・「A」(母音): 裏が奇数ならルール違反 → めくる必要あり<br>・「K」(子音): ルールは子音について何も言っていない → 不要<br>・「4」(偶数): 裏が母音でも子音でもルールに違反しない → 不要<br>・「7」(奇数): 裏が母音だったらルール違反 → <strong>めくる必要あり</strong><br><br>「ルールが破られるケースはどれか」だけを探すのがポイントです。これは心理学で有名な課題で、正答率は10%前後とされています。対偶(裏が奇数でない→母音でない)を確認する発想は、仕様の抜け漏れチェックなど実務でもそのまま使えます。</p>
+    </div>
+
+    <!-- 広告枠A: 解答閲覧直後 -->
+    <div class="ad-slot" data-slot="A"><!-- AdSense承認後ここにコードを貼る --></div>
+  </div>
+
+  <div class="share">
+    <a class="share-x" target="_blank" rel="noopener">Xでシェア</a>
+    <a class="share-line" target="_blank" rel="noopener">LINEで送る</a>
+    <button class="share-copy">リンクをコピー</button>
+  </div>
+
+  <div class="related">
+    <h2>次の一問へ</h2>
+    <ul>
+      <li><a href="/quiz/">問題一覧にもどる</a></li>
+      <li><a href="/quiz/shindan/jiatama/">10問で測る「地頭力診断」に挑戦する</a></li>
+    </ul>
+  </div>
+
+  <div class="ad-slot" data-slot="B"><!-- AdSense承認後ここにコードを貼る --></div>
+
+<script>
+document.getElementById('revealBtn').addEventListener('click', function () {
+  document.getElementById('answerBox').classList.add('show');
+  this.style.display = 'none';
+});
+</script>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav>
+      <a href="/quiz/">演習室トップ</a>
+      <a href="/">カンタン計算ラボ</a>
+      <a href="/about/">運営者情報</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </nav>
+    <p>© <span class="copyright-year"></span> カンタン計算ラボ</p>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+</body>
+</html>
